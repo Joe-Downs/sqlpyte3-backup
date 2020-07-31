@@ -17,7 +17,7 @@ def createTable(cursor, tableName, **kwargs):
     createTableString += list(kwargs.values())[i] + ")"
     
     cursor.execute(createTableString)
-
+    print("Table created!")
 
 # Adds row to specified table with specified values
 def insertRow(cursor, tableName, **kwargs):
@@ -38,4 +38,5 @@ def insertRow(cursor, tableName, **kwargs):
     
     # kwargs is already a dictionary thanks to Python
     cursor.execute(insertRowString, kwargs)
-    print("Added!")
+    print("Row added!")
+

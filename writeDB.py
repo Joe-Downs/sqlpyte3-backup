@@ -5,9 +5,7 @@ import sqlite3
 # args as such: rank = "INTEGER", name = "TEXT"
 def createTable(cursor, tableName, **kwargs):
     print("Creating " + tableName + " table...")
-    createTableString = "CREATE TABLE "
-    createTableString += tableName
-    createTableString += " ("
+    createTableString = "CREATE TABLE " + tableName + " ("
     
     # Creats string listing column titles and types
     i = 0
@@ -16,19 +14,15 @@ def createTable(cursor, tableName, **kwargs):
         createTableString += list(kwargs.values())[i] + ", "
         i += 1
     createTableString += list(kwargs)[i] + " "
-    createTableString += list(kwargs.values())[i]
-    createTableString += ")"
-
-    # Execute the table creation
+    createTableString += list(kwargs.values())[i] + ")"
+    
     cursor.execute(createTableString)
 
 
 # Adds row to specified table with specified values
 def insertRow(cursor, tableName, **kwargs):
     print("Adding row to " + tableName + " table...")
-    insertRowString = "INSERT INTO "
-    insertRowString += tableName
-    insertRowString += " ("
+    insertRowString = "INSERT INTO " + tableName + " ("
     valuesArgs = "("
     
     # Creates strings from the keyword arguments that

@@ -21,3 +21,27 @@ def createTable(cursor, tableName, **kwargs):
 
     # Execute the table creation
     cursor.execute(createTableString)
+
+
+# Adds row to specified table with specified values
+def insertRow(cursor, tableName, **kwargs):
+    print("Adding row to " + tableName + " table...")
+    insertRowString = "INSERT INTO "
+    insertRowString += tableName
+    insertRowString += " ("
+    valuesArgs = "("
+    
+    # Creates strings from the keyword arguments that
+    # SQLite can use as named parameters
+    i = 0
+    while i < (len(kwargs) - 1):
+        insertRowString += list(kwargs)[i] + ", "
+        valuesArgs += ":" + list(kwargs)[i] + ", "
+        i += 1
+    insertRowString += list(kwargs)[i] + ")"
+    valuesArgs += ":" + list(kwargs)[i] + ")"
+    insertRowString += " VALUES " + valuesArgs
+    
+    # kwargs is already a dictionary thanks to Python
+    cursor.execute(insertRowString, kwargs)
+    print("Added!")

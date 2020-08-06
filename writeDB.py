@@ -6,6 +6,9 @@ import sqlite3
 def createTable(cursor, tableName, **kwargs):
     print("Creating " + tableName + " table...")
     createTableString = "CREATE TABLE " + tableName + " ("
+    # Every table will be created with a SQL ID column for
+    # an autoincrementing counter
+    createTableString += "sqlID INTEGER PRIMARY KEY AUTOINCREMENT, "
     
     # Creats string listing column titles and types
     i = 0
@@ -22,8 +25,10 @@ def createTable(cursor, tableName, **kwargs):
 # Adds row to specified table with specified values
 def insertRow(cursor, tableName, **kwargs):
     print("Adding row to " + tableName + " table...")
-    insertRowString = "INSERT INTO " + tableName + " ("
-    valuesArgs = "("
+    # Every table will have a SQL ID column and need to have
+    # NULL inserted into that column for the autoincrement
+    insertRowString = "INSERT INTO " + tableName + " (sqlID, "
+    valuesArgs = "(NULL, "
     
     # Creates strings from the keyword arguments that
     # SQLite can use as named parameters

@@ -10,7 +10,7 @@ def createTable(cursor, tableName, **kwargs):
     # an autoincrementing counter
     createTableString += "sqlID INTEGER PRIMARY KEY AUTOINCREMENT, "
     
-    # Creats string listing column titles and types
+    # Creates string listing column titles and types
     i = 0
     while i < (len(kwargs) - 1):
         createTableString += list(kwargs)[i] + " "

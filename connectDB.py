@@ -1,7 +1,7 @@
 import sqlite3
 
 # Connects to given database; returns connection
-def connectToDB(database):
+def createConnection(database):
     print("Connecting to the database " + database + "...")
     conn = sqlite3.connect(database)
     print("Database connected!")

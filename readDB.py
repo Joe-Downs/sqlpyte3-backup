@@ -9,7 +9,13 @@ def getValue(cursor, tableName, desiredColumn,
     selectDataString = "SELECT " + desiredColumn + " FROM " + tableName
     selectDataString += " WHERE " + searchColumn + "=?"
     cursor.execute(selectDataString, (searchValue,))
-    # fetchone() returns tuple, this returns the first
-    # value of that tuple (the desired value)
-    returnValue = cursor.fetchone()[0]
+    # Assigns the tuple given by fetchone() [or None] to
+    # a variable so it can be accessed multiple times
+    returnTuple = cursor.fetchone()
+    # If there was no match, then return None before trying
+    # to subscript a NoneType
+    if (returnTuple == None):
+        return None
+    # This returns the first value of the tuple (the desired value)
+    returnValue = returnTuple[0]
     return returnValue

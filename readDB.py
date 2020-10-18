@@ -13,10 +13,10 @@ def getValue(cursor, tableName, desiredColumn,
     # Assigns the list of tuples given by fetchall() [or None] to
     # a variable so it can be accessed multiple times
     returnList = cursor.fetchall()
-    # If there was no match, then return None before trying
-    # to subscript a NoneType
-    if (returnList == None):
-        return None
+    # If there was no match, then return None before trying,
+    # raise an error explaining
+    if (len(returnList) == 0):
+        raise sqlite3.ProgrammingError(f"{desiredColumn} for {searchColumn} {searchValue} was not found")
     else:
         # We need to convert the list of tuples into a list of values
         for index in range(0, len(returnList)):

@@ -1,21 +1,29 @@
 import sqlite3
 
 # Returns a single data value from a given table,
-# column, and row
+# column, and row. Setting getMultiple to True will return a
+# tuple of all the values which match the search parameters
 # e.g., return the rank for a given name
 # or, return the name for a given rank
 def getValue(cursor, tableName, desiredColumn,
-             searchColumn, searchValue):
+             searchColumn, searchValue, getMultiple = False):
     selectDataString = "SELECT " + desiredColumn + " FROM " + tableName
     selectDataString += " WHERE " + searchColumn + "=?"
     cursor.execute(selectDataString, (searchValue,))
-    # Assigns the tuple given by fetchone() [or None] to
+    # Assigns the list of tuples given by fetchall() [or None] to
     # a variable so it can be accessed multiple times
-    returnTuple = cursor.fetchone()
+    returnList = cursor.fetchall()
     # If there was no match, then return None before trying
     # to subscript a NoneType
-    if (returnTuple == None):
+    if (returnList == None):
         return None
-    # This returns the first value of the tuple (the desired value)
-    returnValue = returnTuple[0]
-    return returnValue
+    else:
+        # We need to convert the list of tuples into a list of values
+        for index in range(0, len(returnList)):
+            returnList[index] = returnList[index][0]
+    if getMultiple == True:
+        # Return the whole list if the function call asks for multiple values
+        return returnList
+    else:
+        # This returns the first value of the list (the desired value)
+        return returnList[0]

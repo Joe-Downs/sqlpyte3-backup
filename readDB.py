@@ -2,7 +2,7 @@ import sqlite3
 
 # Returns a single data value from a given table,
 # column, and row. Setting getMultiple to True will return a
-# tuple of all the values which match the search parameters
+# list of all the values which match the search parameters
 # e.g., return the rank for a given name
 # or, return the name for a given rank
 def getValue(cursor, tableName, desiredColumn,
